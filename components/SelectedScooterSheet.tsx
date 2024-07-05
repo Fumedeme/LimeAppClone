@@ -6,7 +6,7 @@ import scooterImage from 'assets/scooter.png';
 
 const SelectedScooterSheet = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const { selectedScooter, routeDistance, routeTime, isNearby } = useScooter();
+  const { selectedScooter, routeDistance, routeTime } = useScooter();
 
   useEffect(() => {
     bottomSheetRef.current?.expand();
@@ -31,7 +31,6 @@ const SelectedScooterSheet = () => {
             <Text style={{ color: 'white' }}>{(routeTime / 60).toFixed(1)} min</Text>
           </View>
         </View>
-        <Button title="Start Journey" disabled={!isNearby} />
       </BottomSheetView>
     </BottomSheet>
   );
