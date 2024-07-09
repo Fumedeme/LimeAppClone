@@ -4,7 +4,7 @@ import { ActivityIndicator } from 'react-native';
 import { supabase } from '~/lib/supabase';
 
 type AuthData = {
-  session: any;
+  session?: Session | null;
   isAuthed: boolean;
 };
 

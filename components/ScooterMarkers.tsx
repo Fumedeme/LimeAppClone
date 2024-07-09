@@ -1,12 +1,12 @@
 import { CircleLayer, Images, ShapeSource, SymbolLayer } from '@rnmapbox/maps';
 import { OnPressEvent } from '@rnmapbox/maps/lib/typescript/src/types/OnPressEvent';
 import { useScooter } from '~/providers/scooterProvider';
-import scooters from 'data/scooters.json';
+
 import { featureCollection, point } from '@turf/helpers';
 import pin from '~/assets/pin.png';
 
 const ScooterMarkers = () => {
-  const { setSelectedScooter } = useScooter();
+  const { nearbyScooters, setSelectedScooter } = useScooter();
 
   const onScooterPressed = async (e: OnPressEvent) => {
     if (e.features[0].properties?.scooter) {
@@ -18,7 +18,7 @@ const ScooterMarkers = () => {
     <ShapeSource
       id="scooters"
       shape={featureCollection(
-        scooters.map((scooter) => point([scooter.long, scooter.lat], { scooter }))
+        nearbyScooters.map((scooter: any) => point([scooter.long, scooter.lat], { scooter }))
       )}
       onPress={onScooterPressed}
       cluster>
