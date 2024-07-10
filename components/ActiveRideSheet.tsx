@@ -4,10 +4,12 @@ import { Text } from 'react-native';
 
 import { Button } from './Button';
 import { useRide } from '~/providers/rideProvider';
+import { useScooter } from '~/providers/scooterProvider';
 
 export default function ActiveRideSheet() {
   const { ride, finishRide } = useRide();
   const bottomSheetRef = useRef<BottomSheet>(null);
+  const { setSelectedScooter, setDirection } = useScooter();
 
   useEffect(() => {
     if (ride) {
@@ -28,7 +30,14 @@ export default function ActiveRideSheet() {
         <BottomSheetView style={{ flex: 1, padding: 10, gap: 20 }}>
           <Text>Ride in progress</Text>
 
-          <Button title="Finish journey" onPress={() => finishRide()} />
+          <Button
+            title="Finish journey"
+            onPress={() => {
+              finishRide();
+              setSelectedScooter(null);
+              setDirection(null);
+            }}
+          />
         </BottomSheetView>
       )}
     </BottomSheet>

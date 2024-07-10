@@ -13,6 +13,7 @@ type ScooterData = {
   setSelectedScooter: any;
   isNearby: any;
   direction: any;
+  setDirection: any;
   directionCoordinates: any;
   routeTime: any;
   routeDistance: any;
@@ -23,6 +24,7 @@ const ScooterContext = createContext<ScooterData>({
   selectedScooter: null,
   setSelectedScooter: null,
   direction: null,
+  setDirection: null,
   isNearby: null,
   directionCoordinates: null,
   routeTime: null,
@@ -100,6 +102,7 @@ export default function ScooterProvider({ children }: PropsWithChildren) {
         selectedScooter,
         setSelectedScooter,
         direction,
+        setDirection,
         isNearby,
         directionCoordinates: direction ? direction.routes[0].geometry.coordinates : '',
         routeTime: direction?.routes?.[0]?.duration,

@@ -9,7 +9,7 @@ const RideContext = createContext<RideData>({ startRide: null, ride: null, finis
 
 export default function RideProvider({ children }: PropsWithChildren) {
   const { userId } = useAuth();
-  const [ride, setRide] = useState<any[]>();
+  const [ride, setRide] = useState<any>();
 
   useEffect(() => {
     const fetchActiveRides = async () => {
@@ -21,7 +21,7 @@ export default function RideProvider({ children }: PropsWithChildren) {
       if (error) {
         console.log(error);
       } else {
-        setRide(data);
+        setRide(data[0]);
       }
     };
 
@@ -41,7 +41,7 @@ export default function RideProvider({ children }: PropsWithChildren) {
     if (error) {
       console.log('Failed to start the ride ', error);
     } else {
-      setRide(data);
+      setRide(data[0]);
     }
   };
 
@@ -52,7 +52,7 @@ export default function RideProvider({ children }: PropsWithChildren) {
     const { data, error } = await supabase
       .from('rides')
       .update({ finished_at: new Date() })
-      .eq('id', ride[0].id);
+      .eq('id', ride.id);
 
     if (error) {
       Alert.alert('Failed to finish the ride');

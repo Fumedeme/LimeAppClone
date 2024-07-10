@@ -11,7 +11,11 @@ const SelectedScooterSheet = () => {
   const { startRide } = useRide();
 
   useEffect(() => {
-    bottomSheetRef.current?.expand();
+    if (selectedScooter) {
+      bottomSheetRef.current?.expand();
+    } else {
+      bottomSheetRef.current?.close();
+    }
   }, [selectedScooter]);
 
   return (
