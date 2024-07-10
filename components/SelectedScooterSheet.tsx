@@ -3,10 +3,12 @@ import { useEffect, useRef } from 'react';
 import { Image, Text, View, Button } from 'react-native';
 import { useScooter } from '~/providers/scooterProvider';
 import scooterImage from 'assets/scooter.png';
+import { useRide } from '~/providers/rideProvider';
 
 const SelectedScooterSheet = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const { selectedScooter, routeDistance, routeTime } = useScooter();
+  const { selectedScooter, routeDistance, routeTime, isNearby } = useScooter();
+  const { startRide } = useRide();
 
   useEffect(() => {
     bottomSheetRef.current?.expand();
@@ -30,6 +32,13 @@ const SelectedScooterSheet = () => {
             <Text style={{ color: 'white' }}>{(routeDistance / 1000).toFixed(1)} KM</Text>
             <Text style={{ color: 'white' }}>{(routeTime / 60).toFixed(1)} min</Text>
           </View>
+        </View>
+        <View>
+          <Button
+            title="Start journey"
+            onPress={() => startRide(selectedScooter.id)}
+            disabled={!isNearby}
+          />
         </View>
       </BottomSheetView>
     </BottomSheet>

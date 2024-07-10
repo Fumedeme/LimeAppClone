@@ -6,6 +6,7 @@ import { supabase } from '~/lib/supabase';
 type AuthData = {
   session?: Session | null;
   isAuthed: boolean;
+  userId?: string;
 };
 
 const AuthContext = createContext<AuthData>({
@@ -33,7 +34,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   }
 
   return (
-    <AuthContext.Provider value={{ session, isAuthed: !!session?.user }}>
+    <AuthContext.Provider value={{ session, isAuthed: !!session?.user, userId: session?.user.id }}>
       {children}
     </AuthContext.Provider>
   );
